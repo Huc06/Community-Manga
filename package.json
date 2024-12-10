@@ -14,11 +14,13 @@
     "@tanstack/react-query": "^5.61.3",
     "aos": "^2.3.4",
     "ethers": "^6.13.4",
-    "next": "^15.0.3",
+    "lucid-cardano": "^0.10.11",
+    "next": "^15.0.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-toastify": "^10.0.6",
     "viem": "^2.21.50",
-    "wagmi": "^2.13.0"
+    "wagmi": "^2.13.3"
   },
   "devDependencies": {
     "@types/node": "^20",

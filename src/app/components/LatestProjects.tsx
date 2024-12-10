@@ -1,4 +1,8 @@
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
+import { ethers } from 'ethers';
 import ProjectCard from './HomeCrad';
 
 const latestProjects = [
@@ -8,15 +12,50 @@ const latestProjects = [
 ];
 
 const LatestProjects = () => {
+  const [amount, setAmount] = useState('');
+
+  const fundProject = async (projectId: number) => {
+    if (!window.ethereum) {
+      alert('Please install MetaMask!');
+      return;
+    }
+
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract('0xFE0eD87d5A9c960469DEbf019f8BADe5d64f56CC', FundraisingContract.abi, signer);
+
+      const tx = await contract.fundCampaign(projectId, { value: ethers.utils.parseEther(amount) });
+      await tx.wait();
+      alert('Transaction successful!');
+    } catch (error) {
+      console.error(error);
+      alert('Transaction failed! ' + (error as Error).message);
+    }
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-semibold mb-12">Dự án mới nhất</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {latestProjects.map((project) => (
-            <Link key={project.id} href={`/projects/${project.id}`} passHref>
-              <ProjectCard {...project} />
-            </Link>
+            <div key={project.id}>
+              <Link href={`/projects/${project.id}`} passHref>
+                <ProjectCard {...project} />
+              </Link>
+              <input
+                type="text"
+                placeholder="Số lượng (ETH)"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="border p-2 mb-4 w-full"
+              />
+              <button onClick={() => fundProject(project.id)} className="bg-blue-500 text-white p-2 rounded">
+                Gửi Tiền
+              </button>
+            </div>
           ))}
         </div>
       </div>
