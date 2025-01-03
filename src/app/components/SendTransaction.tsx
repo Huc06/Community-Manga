@@ -38,27 +38,27 @@ const SendTransaction = ({ projectId, contractAddress }: SendTransactionProps) =
     <div className="text-black">
       <input
         type="text"
-        placeholder="Số lượng (ETH)"
+        placeholder="Amount (ETH)"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         className="border p-2 mb-4 w-full"
       />
       <input
         type="text"
-        placeholder="Tên của bạn"
+        placeholder="Your Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
         className="border p-2 mb-4 w-full"
       />
       <input
         type="text"
-        placeholder="Thông điệp của bạn"
+        placeholder="Your Message"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         className="border p-2 mb-4 w-full"
       />
       <button onClick={handleSend} className="bg-blue-500 text-white p-2 rounded" disabled={isPending}>
-        {isPending ? 'Confirming...' : 'Gửi Tiền'}
+        {isPending ? 'Confirming...' : 'Send Money'}
       </button>
       <div className="mt-4 border p-4 rounded-lg shadow-md">
         {hash && (

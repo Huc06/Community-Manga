@@ -17,8 +17,8 @@ const ProjectCard = ({ title, image, progress, author, amountRaised, targetAmoun
         <h3 className="text-xl font-bold mb-2">{title}</h3>
         <p className="text-gray-700 mb-2">{author}</p>
         <div className="flex justify-between text-gray-500 mb-2">
-          <span>Đã được ủng hộ <br/> {amountRaised} ₫</span>
-          <span>Mục tiêu <br/> {targetAmount} ₫</span>
+          <span>Amount Raised <br/> {amountRaised} ₫</span>
+          <span>Target <br/> {targetAmount} ₫</span>
         </div>
         <div className="relative w-full h-2 bg-gray-200 rounded">
           <div
@@ -26,7 +26,7 @@ const ProjectCard = ({ title, image, progress, author, amountRaised, targetAmoun
             style={{ width: `${progress}%` }}
           ></div>
         </div>
-        <p className="text-gray-500 mt-2">{progress}% Thành công</p>
+        <p className="text-gray-500 mt-2">{progress}% Success</p>
       </div>
     </div>
   );

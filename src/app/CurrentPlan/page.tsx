@@ -7,32 +7,32 @@ const CurrentPlan = () => {
       <Header />
       <section className="py-16 bg-gray-50 flex-grow">
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-extrabold mb-8 text-gray-900">Kế hoạch Gây Quỹ cho Community Manga</h2>
+          <h2 className="text-4xl font-extrabold mb-8 text-gray-900">Fundraising Plans for Community Manga</h2>
           <p className="text-lg mb-6 text-gray-700">
-            Chúng tôi đang nỗ lực để phát triển và mở rộng cộng đồng manga của mình thông qua các hoạt động gây quỹ. Dưới đây là những kế hoạch hiện tại mà chúng tôi đang thực hiện:
+            We are striving to develop and expand our manga community through fundraising activities. Here are the current plans we are implementing:
           </p>
           <ul className="list-disc list-inside mb-8 text-left mx-auto max-w-2xl">
             <li className="mb-4 p-4 bg-white shadow-md rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg">
-              Tổ chức sự kiện gây quỹ trực tuyến: Chúng tôi sẽ tổ chức các sự kiện trực tuyến như livestream, đấu giá, và các buổi trò chuyện với tác giả để thu hút sự quan tâm và ủng hộ từ cộng đồng.
+              Organizing online fundraising events: We will hold online events such as livestreams, auctions, and author talks to attract interest and support from the community.
             </li>
             <li className="mb-4 p-4 bg-white shadow-md rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg">
-              Phát hành các bản in giới hạn: Chúng tôi sẽ phát hành các bản in giới hạn của manga và merchandise để gây quỹ, với một phần doanh thu sẽ được sử dụng để phát triển cộng đồng.
+              Releasing limited edition prints: We will release limited edition prints of manga and merchandise to raise funds, with a portion of the revenue used to develop the community.
             </li>
             <li className="mb-4 p-4 bg-white shadow-md rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg">
-              Hợp tác với các nhóm dịch khác: Chúng tôi sẽ hợp tác với các nhóm dịch khác để mở rộng danh sách manga và tổ chức các hoạt động gây quỹ chung.
+              Collaborating with other translation groups: We will collaborate with other translation groups to expand the manga list and organize joint fundraising activities.
             </li>
             <li className="mb-4 p-4 bg-white shadow-md rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg">
-              Khuyến khích sự tham gia của cộng đồng: Chúng tôi sẽ tổ chức các cuộc thi và hoạt động tương tác để khuyến khích sự tham gia của cộng đồng, từ đó thu hút sự ủng hộ và gây quỹ.
+              Encouraging community participation: We will organize contests and interactive activities to encourage community participation, thereby attracting support and raising funds.
             </li>
             <li className="mb-4 p-4 bg-white shadow-md rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg">
-              Xây dựng nền tảng trực tuyến: Chúng tôi sẽ phát triển một nền tảng trực tuyến để người dùng có thể dễ dàng truy cập và theo dõi các dự án, đồng thời hỗ trợ việc gây quỹ.
+              Building an online platform: We will develop an online platform for users to easily access and track projects while supporting fundraising efforts.
             </li>
           </ul>
           <p className="text-lg mb-4 text-gray-700">
-            Chúng tôi rất mong nhận được sự ủng hộ từ các bạn để có thể thực hiện những kế hoạch này và phát triển cộng đồng manga ngày càng lớn mạnh.
+            We hope to receive your support to implement these plans and grow the manga community stronger.
           </p>
           <p className="text-lg font-bold text-gray-900">
-            Cảm ơn bạn đã đồng hành cùng chúng tôi trong hành trình này!
+            Thank you for joining us on this journey!
           </p>
         </div>
       </section>

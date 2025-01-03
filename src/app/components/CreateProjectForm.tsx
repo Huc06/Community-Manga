@@ -10,7 +10,7 @@ import { abi } from '../abis/ProjectFunding';
 import ProjectCard from './HomeCrad'; // Import ProjectCard
 import SendTransaction from './SendTransaction'; // Import SendTransaction
 
-const contractAddress = '0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE'; // Địa chỉ hợp đồng
+const contractAddress = '0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE'; // Contract address
 
 interface Project {
   id: number;
