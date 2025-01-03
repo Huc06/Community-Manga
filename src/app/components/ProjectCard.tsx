@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface ProjectCardProps {
   title: string;
@@ -11,22 +12,23 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ title, image, progress, author, amountRaised, targetAmount }: ProjectCardProps) => {
   return (
-    <div className="border rounded-lg shadow-lg bg-white p-4 flex">
-      <img src={image} alt={title} className="w-1/2 h-auto rounded-l" />
-      <div className="flex flex-col justify-between p-4 w-1/2">
-        <h3 className="text-xl font-bold mb-2">{title}</h3>
-        <p className="text-gray-700 mb-2">{author}</p>
-        <div className="flex justify-between text-gray-500 mb-2">
-          <span>Amount Raised <br/> {amountRaised} ₫</span>
-          <span>Target <br/> {targetAmount} ₫</span>
+    <div className="border rounded-lg overflow-hidden shadow-lg flex flex-col items-center">
+      <Image src={image} alt={title} width={500} height={192} className="w-full h-48 object-cover" />
+      <div className="p-4 flex flex-col items-center flex-grow">
+        <h2 className="font-bold text-xl text-center mb-2">{title}</h2>
+        <p className="text-gray-700 text-center mb-4">{author}</p>
+        <div className="mt-2 w-full">
+          <p className="text-sm text-gray-600 text-center">{amountRaised} has been raised</p>
+          <div className="bg-gray-200 rounded-full h-2">
+            <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${progress}%` }}></div>
+          </div>
         </div>
-        <div className="relative w-full h-2 bg-gray-200 rounded">
-          <div
-            className="absolute h-full bg-pink-500 rounded"
-            style={{ width: `${progress}%` }}
-          ></div>
+        <div className="mt-4 text-sm text-gray-600 flex justify-center space-x-8">
+          <div className="text-center">
+            <p className="font-bold">{targetAmount} ₫</p>
+            <p className="text-pink-600">Target</p>
+          </div>
         </div>
-        <p className="text-gray-500 mt-2">{progress}% Success</p>
       </div>
     </div>
   );

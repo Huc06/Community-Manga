@@ -5,11 +5,10 @@ import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 import { parseEther } from 'viem';
 
 interface SendTransactionProps {
-  projectId: number;
   contractAddress: `0x${string}`; // Ensure the address is of the correct format
 }
 
-const SendTransaction = ({ projectId, contractAddress }: SendTransactionProps) => {
+const SendTransaction: React.FC<SendTransactionProps> = ({ contractAddress }) => {
   const [amount, setAmount] = useState('');
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');

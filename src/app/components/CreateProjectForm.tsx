@@ -158,7 +158,7 @@ export function CreateProjectForm() {
         >
           {isPending ? 'Creating...' : 'Create Project'}
         </button>
-        {hash && <div>Transaction Hash: {hash}</div>}
+        {isConfirmed && hash && <div>Transaction Hash: {hash}</div>}
         {isConfirming && <div>Waiting for confirmation...</div>} 
         {isConfirmed && <div>Project created successfully!</div>} 
         {error && (
@@ -172,7 +172,7 @@ export function CreateProjectForm() {
           {projects.map((project) => (
             <div key={project.id} className="border p-4 rounded">
               <ProjectCard {...project} />
-              <SendTransaction projectId={project.id} contractAddress={contractAddress} />
+              <SendTransaction contractAddress={contractAddress} />
             </div>
           ))}
         </div>

@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
-    appDir: true,
+    // Remove or replace 'appDir' with a valid experimental feature if needed
   },
 };
 
