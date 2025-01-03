@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import ProjectCard from './HomeCrad';
 import SendTransaction from './SendTransaction';
+import CreateProjectForm from './CreateProjectForm';
 
 const latestProjects = [
   { id: 1, title: "Chainsaw Man", description: "Một câu chuyện về Denji, một chàng trai trẻ hợp tác với một con quỷ để trở thành Chainsaw Man.", image: "/images/best-chainsaw-man-characters.jpg", progress: 80, amountRaised: 50000000, daysLeft: 5, supporters: 1200, successRate: 150 },
@@ -11,11 +12,23 @@ const latestProjects = [
 ];
 
 const LatestProjects = () => {
+  const [showCreateForm, setShowCreateForm] = useState(false);
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-semibold mb-12 text-black">Dự án mới nhất</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex flex-row items-center justify-between mb-12 border p-4">
+          <h2 className="text-3xl font-semibold text-black mb-4">Dự án mới nhất</h2>
+          <span 
+            onClick={() => setShowCreateForm(!showCreateForm)}
+            className="text-3xl font-semibold text-black mb-4 cursor-pointer"
+          >
+            {showCreateForm ? 'Ẩn tạo dự án' : 'Tạo dự án mới'}
+          </span>
+        </div>
+        {showCreateForm && <CreateProjectForm />}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
           {latestProjects.map((project) => (
             <div key={project.id} className="text-black">
               <ProjectCard {...project} />
