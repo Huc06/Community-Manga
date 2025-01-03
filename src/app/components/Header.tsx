@@ -12,7 +12,6 @@ const Header = () => {
         </div>
         <nav className="flex items-center space-x-4 text-2xl">
           <Link href="/" className="text-black hover:text-pink-500">Trang Chủ</Link>
-          <Link href="/projects" className="text-black hover:text-pink-500">Toàn bộ các dự án</Link>
           <Link href="/CurrentPlan" className="text-black hover:text-pink-500">Kế hoạch hiện tại</Link>
         </nav>
         <div className="flex items-center">
