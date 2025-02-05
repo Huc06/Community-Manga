@@ -6,9 +6,11 @@ import {
   useWaitForTransactionReceipt, 
   useWriteContract 
 } from 'wagmi';
-import { abi } from '../abis/ProjectFunding';
+import ProjectFundingABI from '../abis/ProjectFunding';
 import ProjectCard from './HomeCrad'; // Import ProjectCard
 import SendTransaction from './SendTransaction'; // Import SendTransaction
+import { parseEther } from 'ethers';
+import { useProjectFunding } from '../hooks/useProjectFunding';
 
 const contractAddress = '0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE'; // Contract address
 
@@ -34,12 +36,7 @@ export function CreateProjectForm() {
 
   const [projects, setProjects] = React.useState<Project[]>([]); // State to hold created projects
 
-  const { 
-    data: hash,
-    error,
-    isPending, 
-    writeContract 
-  } = useWriteContract();
+  const { createCampaign } = useProjectFunding();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -67,31 +64,25 @@ export function CreateProjectForm() {
     }
 
     try {
-      await writeContract({
+      await createCampaign({
         address: contractAddress,
-        abi,
-        functionName: 'createProject',
-        args: [name, description, targetAmount], // Assuming targetAmount is already in Wei
+        abi: ProjectFundingABI,
+        functionName: 'createCampaign',
+        args: [
+          contractAddress, // _owner
+          name,            // _title
+          description,     // _description
+          parseEther(targetAmount), // _target
+          Math.floor(Date.now() / 1000), // _startTime
+          Math.floor(Date.now() / 1000) + 86400, // _endTime
+          image            // _image
+        ],
       });
 
-      // Add the new project to the projects state
-      setProjects((prevProjects) => [
-        ...prevProjects,
-        {
-          id: Math.random(), // Generate a random ID or handle it accordingly
-          title: name,
-          description,
-          image,
-          progress: 0,
-          amountRaised: 0,
-          daysLeft: 0,
-          supporters: 0,
-          successRate: 0,
-        },
-      ]);
+      alert('Campaign created successfully!');
     } catch (err) {
       console.error(err);
-      alert('Transaction failed! ' + (err as BaseError).message);
+      alert('Transaction failed! ' + err.message);
     }
   };
 
