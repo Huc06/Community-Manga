@@ -10,51 +10,42 @@ interface SendTransactionProps {
 
 const SendTransaction: React.FC<SendTransactionProps> = ({ contractAddress }) => {
   const [amount, setAmount] = useState('');
-  const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
-
+  const [recipient, setRecipient] = useState('');
   const { data: hash, error, isPending, sendTransaction } = useSendTransaction();
   const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash });
 
   const handleSend = async () => {
-    if (!window.ethereum) {
-      alert('Please install MetaMask!');
+    if (!recipient || !amount) {
+      alert('Please enter recipient and amount');
       return;
     }
 
-    const value = parseEther(amount); // Convert ETH amount
-
     try {
-      await sendTransaction({ to: contractAddress, value });
-      alert('Transaction sent! Waiting for confirmation...');
-    } catch (error) {
-      console.error(error);
-      alert('Transaction failed! ' + (error as Error).message);
+      await sendTransaction({
+        to: recipient,
+        value: parseEther(amount),
+      });
+    } catch (err) {
+      console.error(err);
+      alert('Transaction failed! ' + err.message);
     }
   };
 
   return (
-    <div className="text-black">
+    <div>
+      <input
+        type="text"
+        placeholder="Recipient Address"
+        value={recipient}
+        onChange={(e) => setRecipient(e.target.value)}
+        className="mb-2 p-2 border border-gray-300 rounded"
+      />
       <input
         type="text"
         placeholder="Amount (ETH)"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
-        className="border p-2 mb-4 w-full"
-      />
-      <input
-        type="text"
-        placeholder="Your Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="border p-2 mb-4 w-full"
-      />
-      <input
-        type="text"
-        placeholder="Your Message"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        className="border p-2 mb-4 w-full"
+        className="mb-2 p-2 border border-gray-300 rounded"
       />
       <button onClick={handleSend} className="bg-blue-500 text-white p-2 rounded" disabled={isPending}>
         {isPending ? 'Confirming...' : 'Send Money'}

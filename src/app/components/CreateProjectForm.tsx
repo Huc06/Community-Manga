@@ -33,9 +33,12 @@ export function CreateProjectForm() {
     description: '',
     targetAmount: '',
     image: '',
+    startTime: '',
+    endTime: '',
   });
 
   const [projects, setProjects] = React.useState<Project[]>([]); // State to hold created projects
+  const [transactionHash, setTransactionHash] = React.useState<string | null>(null); // Declare hash state
 
   const { createCampaign } = useProjectFunding();
 
@@ -57,35 +60,34 @@ export function CreateProjectForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { name, description, targetAmount, image } = formData;
+    const { name, description, targetAmount, image, startTime, endTime } = formData;
 
-    if (!name || !description || !targetAmount || !image) {
+    if (!name || !description || !targetAmount || !image || !startTime || !endTime) {
       alert('Please fill in all fields');
       return;
     }
 
     try {
-      await createCampaign([
+      const tx = await createCampaign([
         contractAddress, // _owner
         name,            // _title
         description,     // _description
-        targetAmount,    // _target
-        Math.floor(Date.now() / 1000), // _startTime
-        Math.floor(Date.now() / 1000) + 86400, // _endTime
+        parseEther(targetAmount), // _target
+        Math.floor(new Date(startTime).getTime() / 1000), // _startTime
+        Math.floor(new Date(endTime).getTime() / 1000),   // _endTime
         image            // _image
       ]);
 
+      setTransactionHash(tx.hash); // Set the transaction hash
       alert('Campaign created successfully!');
+      // Optionally, you can add the new project to the projects state here
     } catch (err) {
       console.error(err);
       alert('Transaction failed! ' + err.message);
     }
   };
 
-  const { isLoading: isConfirming, isSuccess: isConfirmed } = 
-    useWaitForTransactionReceipt({ 
-      hash, 
-    });
+  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash: transactionHash });
 
   return (
     <div>
@@ -128,6 +130,30 @@ export function CreateProjectForm() {
           />
         </div>
         <div className="space-y-1">
+          <label htmlFor="startTime" className="block text-sm font-medium text-gray-700">Start Time</label>
+          <input
+            id="startTime"
+            name="startTime"
+            type="datetime-local"
+            value={formData.startTime}
+            onChange={handleChange}
+            required
+            className="mb-2 p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="space-y-1">
+          <label htmlFor="endTime" className="block text-sm font-medium text-gray-700">End Time</label>
+          <input
+            id="endTime"
+            name="endTime"
+            type="datetime-local"
+            value={formData.endTime}
+            onChange={handleChange}
+            required
+            className="mb-2 p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="space-y-1">
           <label htmlFor="image" className="block text-sm font-medium text-gray-700">Project Image</label>
           <input
             id="image"
@@ -139,18 +165,13 @@ export function CreateProjectForm() {
           />
         </div>
         <button 
-          disabled={isPending} 
           type="submit"
           className="bg-blue-500 text-white p-2 rounded"
         >
-          {isPending ? 'Creating...' : 'Create Project'}
+          Create Project
         </button>
-        {isConfirmed && hash && <div>Transaction Hash: {hash}</div>}
+        {isConfirmed && transactionHash && <div>Transaction Hash: {transactionHash}</div>}
         {isConfirming && <div>Waiting for confirmation...</div>} 
-        {isConfirmed && <div>Project created successfully!</div>} 
-        {error && (
-          <div className="text-red-500 mt-2">Error: {(error as BaseError).shortMessage || error.message}</div>
-        )}
       </form>
 
       {/* Display created projects */}

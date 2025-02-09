@@ -7,7 +7,9 @@ import {
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-import { mainnet, sepolia } from 'wagmi/chains';
+import {
+  ancient8Sepolia,
+} from 'wagmi/chains';
 import {
   QueryClientProvider,
   QueryClient,
@@ -19,13 +21,13 @@ if (!process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID) {
 }
 
 export const config = getDefaultConfig({
-  appName: "Recruitment_system",
+  appName: 'Recruitment_system',
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
-  chains: [mainnet, sepolia],
+  chains: [ancient8Sepolia],
   transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
+    [ancient8Sepolia.id]: http(),
   },
+  ssr: true, // If your dApp uses server side rendering (SSR)
 });
 
 const queryClient = new QueryClient();
