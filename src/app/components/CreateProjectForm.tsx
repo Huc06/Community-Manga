@@ -6,11 +6,12 @@ import {
   useWaitForTransactionReceipt, 
   useWriteContract 
 } from 'wagmi';
-import ProjectFundingABI from '../abis/ProjectFunding';
 import ProjectCard from './HomeCrad'; // Import ProjectCard
 import SendTransaction from './SendTransaction'; // Import SendTransaction
 import { parseEther } from 'ethers';
 import { useProjectFunding } from '../hooks/useProjectFunding';
+import { useCreateCampaign } from '../hooks/useCreateCampaign';
+import { useContract } from '../hooks/useContract';
 
 const contractAddress = '0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE'; // Contract address
 
@@ -64,20 +65,15 @@ export function CreateProjectForm() {
     }
 
     try {
-      await createCampaign({
-        address: contractAddress,
-        abi: ProjectFundingABI,
-        functionName: 'createCampaign',
-        args: [
-          contractAddress, // _owner
-          name,            // _title
-          description,     // _description
-          parseEther(targetAmount), // _target
-          Math.floor(Date.now() / 1000), // _startTime
-          Math.floor(Date.now() / 1000) + 86400, // _endTime
-          image            // _image
-        ],
-      });
+      await createCampaign([
+        contractAddress, // _owner
+        name,            // _title
+        description,     // _description
+        targetAmount,    // _target
+        Math.floor(Date.now() / 1000), // _startTime
+        Math.floor(Date.now() / 1000) + 86400, // _endTime
+        image            // _image
+      ]);
 
       alert('Campaign created successfully!');
     } catch (err) {

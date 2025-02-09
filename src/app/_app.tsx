@@ -7,19 +7,25 @@ import {
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-import {
-  ancient8Sepolia,
-} from 'wagmi/chains';
+import { mainnet, sepolia } from 'wagmi/chains';
 import {
   QueryClientProvider,
   QueryClient,
 } from "@tanstack/react-query";
+import { http } from "wagmi";
 
-const config = getDefaultConfig({
-  appName: 'My RainbowKit App',
-  projectId: 'YOUR_PROJECT_ID',
-  chains: [ancient8Sepolia],
-  ssr: true, // If your dApp uses server side rendering (SSR)
+if (!process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID) {
+  throw new Error("Missing NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID");
+}
+
+export const config = getDefaultConfig({
+  appName: "Recruitment_system",
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
+  chains: [mainnet, sepolia],
+  transports: {
+    [mainnet.id]: http(),
+    [sepolia.id]: http(),
+  },
 });
 
 const queryClient = new QueryClient();

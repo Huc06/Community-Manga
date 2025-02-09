@@ -1,23 +1,17 @@
 'use client';
 
-import { useContractRead, useWriteContract } from 'wagmi';
-import ProjectFundingABI from '../abis/ProjectFunding';
-
-const contractAddress = '0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE'; // Địa chỉ hợp đồng
+import { useGetCampaigns } from './useGetCampaigns';
+import { useCreateCampaign } from './useCreateCampaign';
+import { useDonateToCampaign } from './useDonateToCampaign';
 
 export const useProjectFunding = () => {
-  const { data: campaigns, error: campaignsError, isLoading: isLoadingCampaigns } = useContractRead({
-    address: contractAddress,
-    abi: ProjectFundingABI,
-    functionName: 'getCampaigns',
-  });
-
-  const { write: createCampaign } = useWriteContract();
+  const { getCampaigns } = useGetCampaigns();
+  const { createCampaign } = useCreateCampaign();
+  const { donateToCampaign } = useDonateToCampaign();
 
   return {
-    campaigns,
-    campaignsError,
-    isLoadingCampaigns,
+    getCampaigns,
     createCampaign,
+    donateToCampaign,
   };
 }; 

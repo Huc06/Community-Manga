@@ -1,4 +1,4 @@
-[
+export const ProjectFundingABI = [
 	{
 	  "inputs": [
 		{
@@ -300,4 +300,4 @@
 	  "stateMutability": "nonpayable",
 	  "type": "function"
 	}
-  ]
+]
